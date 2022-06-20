@@ -1,13 +1,13 @@
 import React, { useState , useEffect } from "react";
 import Button from "./Button";
 
-const Home = () => {
+const StyleChanger = () => {
   
 
 
     return (
       <div className="clearFix">
-       <h1>Home</h1>
+       <h1>React</h1>
     <SomeButtons />
        </div>
     )
@@ -116,5 +116,5 @@ color="Black" />
     );
     }
     */
-    export default Home;
+    export default StyleChanger;
     

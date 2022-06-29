@@ -1,6 +1,7 @@
-import { createStore  , applyMiddleware} from 'redux';
+import { createStore  , applyMiddleware, combineReducers} from 'redux';
 import Button from "./Button";
 import React, { useState } from "react";
+
 
 const wifeReducer = (state = {
   name: 'sina',
@@ -72,12 +73,58 @@ const wifeReducer = (state = {
   return state;
 };
 
+const lifeReducer = (state = {
+skills: [],
+religion: "",
+kalif: "",
+interests: [],
+researchs:[],
+}, action) => {
+  switch(action.type) {
+    case "ADD_SKILL":
+      state = {
+        ...state,
+        skills: [...state.skills, action.payload]
+      };
+      break;
+
+      case "SET_RELIGION":
+      state = {
+        ...state,
+        religion: action.payload
+      };
+      break;
+
+      case "CHOOSE_KALIF":
+      state = {
+        ...state,
+        kalif: action.payload
+      };
+      break;
+
+      case "HAVE_INTEREST":
+      state = {
+        ...state,
+        interests: [...state.interests, action.payload]
+      };
+      break;
+
+      case "DO_RESEARCH":
+      state = {
+        ...state,
+        researchs: [...state.researchs, action.payload]
+      };
+      break;
+  };
+  return state;
+};
+
 const theLogger = (store) => (next) => (action) => {
-console.log('the action is', action);
+console.log('logging by middleWare: the action is', action);
 next(action);
 };
 
-const store = createStore(wifeReducer, applyMiddleware(theLogger));
+const store = createStore(combineReducers({lifeReducer,wifeReducer}), applyMiddleware(theLogger));
 
 
 const Wives = () => {
@@ -87,20 +134,70 @@ const Wives = () => {
     <div className="App clearFix">
 
       <p>hi</p>
-      <p>you are {state.name}</p>
-      <p>you are {state.age} years old</p>
-      <p>your work is {state.work}</p>
-      <p>you have {state.money} money</p>
-      <p>you have {state.wives.length} temporary wives</p>
-      <p>your temporary wives are {state.wives.map(wife => wife + " ")}</p>
-      <p>you have {state.permanentWives.length} permanent wives</p>
-      <p>your permanent wives are {state.permanentWives.map(wife => wife + " ")}</p>
-      <p>you have {state.homes.length} homes</p>
-      <p>your homes are {state.homes.map(home => home + " ")}</p>
-      <p>you have {state.children.length} children</p>
-      <p>your children are {state.children.map(child => child+ " ")}</p>
+      <p>you are {state.wifeReducer.name}</p>
+      <p>your skills are {state.lifeReducer.skills.map(skill => skill+ " ")}</p>
+      <p>your religion is {state.lifeReducer.religion}</p>
+      <p>your kalif is {state.lifeReducer.kalif}</p>
+      <p>your interests are {state.lifeReducer.interests.map(interest => interest + " ")}</p>
+      <p>your researchs are {state.lifeReducer.researchs.map(research => research + " ")}</p>
+      <p>you are {state.wifeReducer.age} years old</p>
+      <p>your work is {state.wifeReducer.work}</p>
+      <p>you have {state.wifeReducer.money} money</p>
+      <p>you have {state.wifeReducer.wives.length} temporary wives</p>
+      <p>your temporary wives are {state.wifeReducer.wives.map(wife => wife + " ")}</p>
+      <p>you have {state.wifeReducer.permanentWives.length} permanent wives</p>
+      <p>your permanent wives are {state.wifeReducer.permanentWives.map(wife => wife + " ")}</p>
+      <p>you have {state.wifeReducer.homes.length} homes</p>
+      <p>your homes are {state.wifeReducer.homes.map(home => home + " ")}</p>
+      <p>you have {state.wifeReducer.children.length} children</p>
+      <p>your children are {state.wifeReducer.children.map(child => child+ " ")}</p>
 
-
+      <Button 
+      text="choose a religion" 
+      eventHandler={() => {
+        store.dispatch({
+        type: 'SET_RELIGION',
+        payload: 'Islam'
+      });
+    setState(store.getState())
+      }}/>
+      <Button 
+      text="choose a kalif" 
+      eventHandler={() => {
+        store.dispatch({
+        type: 'CHOOSE_KALIF',
+        payload: 'al-Imam al-Mahdy'
+      });
+    setState(store.getState())
+      }}/>
+       <Button 
+      text="research something" 
+      eventHandler={() => {
+        store.dispatch({
+        type: 'DO_RESEARCH',
+        payload: 'art'
+      });
+    setState(store.getState())
+      }}/>
+      <Button 
+      text="have an interest" 
+      eventHandler={() => {
+        store.dispatch({
+        type: 'HAVE_INTEREST',
+        payload: 'gaming'
+      });
+    setState(store.getState())
+      }}/>
+      <Button 
+      text="reach a skill" 
+      eventHandler={() => {
+        store.dispatch({
+        type: 'ADD_SKILL',
+        payload: 'front-end developer'
+      });
+    setState(store.getState())
+      }}/>
+<br />
       <Button 
       text="add a temporary wife" 
       eventHandler={() => {
@@ -110,15 +207,7 @@ const Wives = () => {
       });
     setState(store.getState())
       }}/>
-      <Button 
-      text="add a permanent wife" 
-      eventHandler={() => {
-        store.dispatch({
-        type: 'PERMANENT_MARRY',
-        payload: 'mary'
-      });
-    setState(store.getState())
-      }}/>
+      
       <Button
       text="become an architect" 
       eventHandler={() => {
@@ -146,27 +235,44 @@ const Wives = () => {
       });
       setState(store.getState())
       }}/>
+      <br />
       <Button
       text="have a home" 
       eventHandler={() => {
         store.dispatch({
         type: 'HABITATION', 
-        payload: "home" + `${state.homes.length + 1}`
+        payload: "home" + `${state.wifeReducer.homes.length + 1}`
       });
       setState(store.getState())
+      }}/>
+      <Button 
+      text="add a permanent wife" 
+      eventHandler={() => {
+        store.dispatch({
+        type: 'PERMANENT_MARRY',
+        payload: 'mary'
+      });
+    setState(store.getState())
       }}/>
       <Button
       text="have a child" 
       eventHandler={() => {
         store.dispatch({
         type: 'BORN',
-        payload: "child" + `${state.children.length + 1}`
+        payload: "child" + `${state.wifeReducer.children.length + 1}`
       });
       setState(store.getState())
       }}/>
       
+     
       
     </div>
   )
 }
+
+store.subscribe(() => {
+  console.log('logged by subscribe: ', store.getState());
+})
+
+
 export default Wives;

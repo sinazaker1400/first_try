@@ -12,13 +12,13 @@ const Layout = () => {
             <Link to="/">react style changer</Link>
           </li>
           <li>
-            <Link to="/blogs">Blogs</Link>
+            <Link to="/blogs">Todo list</Link>
           </li>
           <li>
             <Link to="/contact">Contact me</Link>
           </li>
           <li>
-            <Link to="/redux">redux wife manager</Link>
+            <Link to="/redux">redux wife & life manager</Link>
           </li>
         </ul>
       </nav>

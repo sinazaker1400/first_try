@@ -1,10 +1,10 @@
 import { createStore  , applyMiddleware, combineReducers} from 'redux';
-import Button from "./Button";
+import Button, {Input} from "./Button";
 import React, { useState } from "react";
 
 
 const wifeReducer = (state = {
-  name: 'sina',
+  name: '',
   money: 0,
   wives: [],
   work: '',
@@ -19,8 +19,8 @@ const wifeReducer = (state = {
     {state = {
       ...state,
       money: state.money -2,
-      permanentWives: [...state.permanentWives, action.payload],
-      wives: [...state.wives].slice(0,state.wives.length - 1)
+      permanentWives: [...state.permanentWives, state.wives.pop()],
+      
     };}
   
     break;
@@ -32,7 +32,7 @@ const wifeReducer = (state = {
       }
       break;
       case 'BORN':
-        if(state.permanentWives.length>0 && state.homes.length>0 && state.money>0)
+        if(state.permanentWives.length>0 && state.homes.length>0 && state.money>0 && state.children.length/state.permanentWives.length < 3)
       state = {
         ...state,
         children: [...state.children, action.payload],
@@ -52,8 +52,14 @@ const wifeReducer = (state = {
           ...state,
           money: state.money + 15*action.payload,
           age: state.age + 1
+        }} else {
+          state = {
+            ...state,
+            money: state.money + state.work.length,
+            age: state.age + 1
         }};
       break;
+
       case 'MARRY':
         if(state.money>0)
       state = {
@@ -67,6 +73,13 @@ const wifeReducer = (state = {
       state = {
         ...state,
         work: action.payload
+      };
+      break;
+
+      case 'SET_NAME':
+      state = {
+        ...state,
+        name: action.payload
       };
       break;
   }
@@ -129,73 +142,95 @@ const store = createStore(combineReducers({lifeReducer,wifeReducer}), applyMiddl
 
 const Wives = () => {
   const [state, setState] = useState(store.getState());
-
+  const [inputValue, setInputValue] = useState("");
   return (
     <div className="App clearFix">
-
-      <p>hi</p>
-      <p>you are {state.wifeReducer.name}</p>
-      <p>your skills are {state.lifeReducer.skills.map(skill => skill+ " ")}</p>
-      <p>your religion is {state.lifeReducer.religion}</p>
-      <p>your kalif is {state.lifeReducer.kalif}</p>
-      <p>your interests are {state.lifeReducer.interests.map(interest => interest + " ")}</p>
-      <p>your researchs are {state.lifeReducer.researchs.map(research => research + " ")}</p>
-      <p>you are {state.wifeReducer.age} years old</p>
-      <p>your work is {state.wifeReducer.work}</p>
+      <p>Hi, you are {state.wifeReducer.name}</p>
+      <p>your religion is {state.lifeReducer.religion} & your kalif is {state.lifeReducer.kalif}</p>
+      <p>your interests are {state.lifeReducer.interests.map(interest => interest + " ")} & your researchs are {state.lifeReducer.researchs.map(research => research + " ")} & your skills are {state.lifeReducer.skills.map(skill => skill+ " ")}</p>
+      <p>you are {state.wifeReducer.age} years old & your work is {state.wifeReducer.work}</p>
       <p>you have {state.wifeReducer.money} money</p>
-      <p>you have {state.wifeReducer.wives.length} temporary wives</p>
-      <p>your temporary wives are {state.wifeReducer.wives.map(wife => wife + " ")}</p>
-      <p>you have {state.wifeReducer.permanentWives.length} permanent wives</p>
-      <p>your permanent wives are {state.wifeReducer.permanentWives.map(wife => wife + " ")}</p>
-      <p>you have {state.wifeReducer.homes.length} homes</p>
-      <p>your homes are {state.wifeReducer.homes.map(home => home + " ")}</p>
-      <p>you have {state.wifeReducer.children.length} children</p>
-      <p>your children are {state.wifeReducer.children.map(child => child+ " ")}</p>
+      <p>you have {state.wifeReducer.wives.length} temporary wives & your temporary wives are {state.wifeReducer.wives.map(wife => wife + " ")}</p>
+      <p>you have {state.wifeReducer.permanentWives.length} permanent wives & your permanent wives are {state.wifeReducer.permanentWives.map(wife => wife + " ")}</p>
+      <p>you have {state.wifeReducer.homes.length} homes & your homes are {state.wifeReducer.homes.map(home => home + " ")}</p>
+      <p>you have {state.wifeReducer.children.length} children & your children are {state.wifeReducer.children.map(child => child+ " ")}</p>
+
+<Input 
+backgroundColor="lightblue"
+id = "input-1"
+name="input-1"
+labelText="type something in the input field"
+eventHandler={() => setInputValue(document.getElementById("input-1").value)}
+value={inputValue}
+/>
+<br />
+
+<Button 
+      text="set your name" 
+      eventHandler={() => {
+        store.dispatch({
+        type: 'SET_NAME',
+        payload: inputValue || 'Sina'
+      });
+    setState(store.getState());
+    document.getElementById("input-1").value = "";
+    setInputValue("");
+      }}/>
 
       <Button 
       text="choose a religion" 
       eventHandler={() => {
         store.dispatch({
         type: 'SET_RELIGION',
-        payload: 'Islam'
+        payload: inputValue || 'Islam'
       });
-    setState(store.getState())
+    setState(store.getState());
+    document.getElementById("input-1").value = "";
+    setInputValue("");
       }}/>
       <Button 
       text="choose a kalif" 
       eventHandler={() => {
         store.dispatch({
         type: 'CHOOSE_KALIF',
-        payload: 'al-Imam al-Mahdy'
+        payload: inputValue || 'al-Imam al-Mahdy'
       });
-    setState(store.getState())
+    setState(store.getState());
+    document.getElementById("input-1").value = "";
+    setInputValue("");
       }}/>
        <Button 
       text="research something" 
       eventHandler={() => {
         store.dispatch({
         type: 'DO_RESEARCH',
-        payload: 'art'
+        payload: inputValue || 'art'
       });
-    setState(store.getState())
+    setState(store.getState());
+    document.getElementById("input-1").value = "";
+    setInputValue("");
       }}/>
       <Button 
       text="have an interest" 
       eventHandler={() => {
         store.dispatch({
         type: 'HAVE_INTEREST',
-        payload: 'gaming'
+        payload: inputValue || 'gaming'
       });
-    setState(store.getState())
+    setState(store.getState());
+    document.getElementById("input-1").value = "";
+    setInputValue("");
       }}/>
       <Button 
       text="reach a skill" 
       eventHandler={() => {
         store.dispatch({
         type: 'ADD_SKILL',
-        payload: 'front-end developer'
+        payload: inputValue || 'front-end developer'
       });
-    setState(store.getState())
+    setState(store.getState());
+    document.getElementById("input-1").value = "";
+    setInputValue("");
       }}/>
 <br />
       <Button 
@@ -203,9 +238,11 @@ const Wives = () => {
       eventHandler={() => {
         store.dispatch({
         type: 'MARRY',
-        payload: 'mary'
+        payload: inputValue || 'mary'+`${state.wifeReducer.wives.length + state.wifeReducer.permanentWives.length + 1}`
       });
-    setState(store.getState())
+    setState(store.getState());
+    document.getElementById("input-1").value = "";
+    setInputValue("");
       }}/>
       
       <Button
@@ -213,18 +250,22 @@ const Wives = () => {
       eventHandler={() => {
         store.dispatch({
         type: 'SET_WORK',
-        payload: 'architecture'
+        payload: inputValue || 'architecture'
       });
-      setState(store.getState())
+      setState(store.getState());
+      document.getElementById("input-1").value = "";
+      setInputValue("");
       }}/>
       <Button
       text="become a developer" 
       eventHandler={() => {
         store.dispatch({
         type: 'SET_WORK',
-        payload: 'developer'
+        payload: inputValue || 'developer'
       });
-      setState(store.getState())
+      setState(store.getState());
+      document.getElementById("input-1").value = "";
+      setInputValue("");
       }}/>
       <Button
       text="have an income" 
@@ -241,16 +282,17 @@ const Wives = () => {
       eventHandler={() => {
         store.dispatch({
         type: 'HABITATION', 
-        payload: "home" + `${state.wifeReducer.homes.length + 1}`
+        payload: inputValue || "home" + `${state.wifeReducer.homes.length + 1}`
       });
-      setState(store.getState())
+      setState(store.getState());
+      document.getElementById("input-1").value = "";
+      setInputValue("");
       }}/>
       <Button 
       text="add a permanent wife" 
       eventHandler={() => {
         store.dispatch({
         type: 'PERMANENT_MARRY',
-        payload: 'mary'
       });
     setState(store.getState())
       }}/>
@@ -259,9 +301,11 @@ const Wives = () => {
       eventHandler={() => {
         store.dispatch({
         type: 'BORN',
-        payload: "child" + `${state.wifeReducer.children.length + 1}`
+        payload: inputValue || "child" + `${state.wifeReducer.children.length + 1}`
       });
-      setState(store.getState())
+      setState(store.getState());
+      document.getElementById("input-1").value = "";
+      setInputValue("");
       }}/>
       
      

@@ -2,7 +2,7 @@ import { useReducer } from "react";
 const Blogs = () => {
     return (
       <>
-    <h1 className="clearFix" style={{color:"red"}}>Blog Articles</h1>
+    <h1 className="clearFix" style={{color:"red"}}>A simple todo list</h1>
     <Todos />
     </>
     )

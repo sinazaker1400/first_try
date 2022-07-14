@@ -1,5 +1,5 @@
-import logo from '/home/afagh/sina/react_apps/z-1/src/logo.svg';
-import '/home/afagh/sina/react_apps/z-1/src/App.css';
+import logo from '/home/afagh/sina/react_apps/first_try/src/logo.svg';
+import '/home/afagh/sina/react_apps/first_try/src/App.css';
 
 function Contact() {
   return (

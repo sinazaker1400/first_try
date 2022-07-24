@@ -20,6 +20,9 @@ const Layout = () => {
           <li>
             <Link to="/redux">redux wife & life manager</Link>
           </li>
+          <li>
+            <Link to="/react-redux">react-redux villa manager</Link>
+          </li>
         </ul>
       </nav>
       

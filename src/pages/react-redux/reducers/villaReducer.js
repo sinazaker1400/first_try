@@ -13,7 +13,7 @@ const villaReducer = (state={
         };
         break;
 
-        case "SET_STYLE":
+        case "SET_STYLE_FULFILLED":
         state = {
             ...state,
             villaStyle: action.payload 

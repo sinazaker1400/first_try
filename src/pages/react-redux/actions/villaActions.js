@@ -1,14 +1,22 @@
 export function setName(name) {
-    return {
-        type: "SET_NAME",
-        payload: name
-    };
+    return dispatch => {
+        setTimeout(() => {
+            dispatch({
+                type: "SET_NAME",
+                payload: name
+            });
+        }, 10313);
+    }
 };
 
 export function setStyle(style) {
     return {
         type: "SET_STYLE",
-        payload: style
+        payload: new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(style);
+            },313);
+        })
     };
 };
 

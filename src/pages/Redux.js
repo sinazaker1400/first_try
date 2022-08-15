@@ -25,6 +25,7 @@ const wifeReducer = (state = {
   
     break;
     case 'HABITATION':
+      if(state.money>2)
       state = {
         ...state,
         homes: [...state.homes, action.payload],

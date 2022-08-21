@@ -2,44 +2,44 @@
   text-align: center;
 }
 
-.Rock3D{
-  font-family: 'Rock 3D', cursive;
+.Rock3D {
+  font-family: "Rock 3D", cursive;
 }
 
-.Smokum{
-  font-family: 'Smokum', cursive;
+.Smokum {
+  font-family: "Smokum", cursive;
 }
 
-.Inspiration{
-  font-family: 'Inspiration', cursive;
+.Inspiration {
+  font-family: "Inspiration", cursive;
 }
 
-.Hurricane{
-  font-family: 'Hurricane', cursive;
+.Hurricane {
+  font-family: "Hurricane", cursive;
 }
 
 .PaletteMosaic {
-  font-family: 'Palette Mosaic', cursive;
+  font-family: "Palette Mosaic", cursive;
 }
 
-.Poppins{
-  font-family: 'Poppins', serif;
+.Poppins {
+  font-family: "Poppins", serif;
 }
 
-.AbrilFatface{
-  font-family: 'Abril Fatface', serif;
+.AbrilFatface {
+  font-family: "Abril Fatface", serif;
 }
 
-.Lobster{
-  font-family: 'Lobster', cursive;
+.Lobster {
+  font-family: "Lobster", cursive;
 }
 
-.AbrilFatface{
-  font-family: 'Abril Fatface', serif;
+.AbrilFatface {
+  font-family: "Abril Fatface", serif;
 }
 
-.Lobster{
-  font-family: 'Lobster', cursive;
+.Lobster {
+  font-family: "Lobster", cursive;
 }
 
 .App-logo {
@@ -48,13 +48,14 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo, .devider-img {
+  .App-logo,
+  .devider-img {
     animation: App-logo-spin infinite 37s linear;
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-.devider-img-reverse {
+  .devider-img-reverse {
     animation: App-logo-spin-reverse infinite 37s linear;
   }
 }
@@ -70,25 +71,26 @@
   color: white;
 }
 
-.styler-style{
+.styler-style {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.devider-img ,.devider-img-reverse {
+.devider-img,
+.devider-img-reverse {
   height: 5vmin;
   pointer-events: none;
-  margin:none;
+  margin: none;
   padding: none;
 }
 
 .App-link {
   color: #6b0745;
   text-decoration: none;
-  font-family: 'Poppins', sans-serif;
-  font-size: 16px; 
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
 }
 
 @keyframes App-logo-spin {
@@ -109,41 +111,51 @@
   }
 }
 
-.img-container-div{
-  display:block;
+.img-container-div {
+  display: block;
   margin-top: 6px;
-  }
+}
 
-nav ul li{
+nav ul li {
   float: left;
   list-style: none;
   margin: 3px;
   background-color: aquamarine;
 }
 
-.clearFix{
+.clearFix {
   clear: left;
 }
 
-  .my-first{
-    text-align: center;
-    font-family: 'Abril Fatface', serif;
-    font-size: 30px;
-    text-shadow: 3px 3px 3px #ababab;
-  }
+.my-first {
+  text-align: center;
+  font-family: "Abril Fatface", serif;
+  font-size: 30px;
+  text-shadow: 3px 3px 3px #ababab;
+}
 
-  .sina{
-    font-family: 'Lobster', cursive;
-    font-size: 37px;
-    text-shadow: 3px 3px 3px #b13232;
-  }
+.sina {
+  font-family: "Lobster", cursive;
+  font-size: 37px;
+  text-shadow: 3px 3px 3px #b13232;
+}
 
-  .icons {
-    height: 16px;
-    width: auto;
-    margin-left: 3px;
-  }
+.icons {
+  height: 16px;
+  width: auto;
+  margin-left: 3px;
+}
 
-  .App-logo {
-    display: inline;
-  }
+.App-logo {
+  display: inline;
+}
+
+.villa_keeper_img {
+  width: auto;
+  height: 100px;
+}
+
+.villa_icon {
+  width: auto;
+  height: 100px;
+}

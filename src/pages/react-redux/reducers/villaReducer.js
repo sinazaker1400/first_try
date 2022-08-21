@@ -35,10 +35,11 @@ const villaReducer = (state={
         break;
 
         case "SET_KEEPER":
-        state = {
+            if(state.villaName)
+        {state = {
             ...state,
             villaKeeper: action.payload 
-        };
+        };} else {alert("set the villa name first")}
         break;
 
     };

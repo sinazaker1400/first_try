@@ -54,19 +54,25 @@ class ReactReduxApp extends React.Component {
           text="set the villa keeper"
         />
 
-        <p>
-          the villa name is {this.props.villa.villaName} and it's style is{" "}
-          {this.props.villa.villaStyle} & villa spaces are{" "}
-          {this.props.villa.villaSpaces.map((space) => space + ", ")}& the villa
-          keeper is {this.props.villa.villaKeeper}
-        </p>
+        <div>
+          {this.props.villa.villaName && (
+            <p>the villa name is {this.props.villa.villaName}</p>
+          )}
+          {this.props.villa.villaStyle && (
+            <p>and it's style is {this.props.villa.villaStyle}</p>
+          )}{" "}
+          {this.props.villa.villaSpaces[0] && (
+            <p>
+              & villa spaces are{" "}
+              {this.props.villa.villaSpaces.map((space) => space + ", ")}
+            </p>
+          )}
+          {this.props.villa.villaKeeper && (
+            <p>& the villa keeper is {this.props.villa.villaKeeper}</p>
+          )}
+        </div>
         <div className="villa_div">
-          
-          <div className="villa_spaces">
-            {this.props.villa.villaSpaces.map((space) => (
-              <span className="villa_space">{space}</span>
-            ))}
-          </div>
+        
           <span className="villa_keeper_span">
             {this.props.villa.villaKeeper && this.props.villa.villaName && (
               <img
@@ -80,11 +86,26 @@ class ReactReduxApp extends React.Component {
             )}
           </span>
           <span className="villa_icon_span">
-{this.props.villa.villaName && (
-    <img className="villa_icon"
-    src="https://www.kindpng.com/picc/m/76-765636_beach-house-icon-beach-house-icon-png-transparent.png"
-    title={this.props.villa.villaName}></img>
-)}
+            {this.props.villa.villaName && (
+              <img
+                className="villa_icon"
+                src="https://www.kindpng.com/picc/m/76-765636_beach-house-icon-beach-house-icon-png-transparent.png"
+                title={this.props.villa.villaName}
+              ></img>
+            )}
+          </span>
+          <br />
+          <span className="villa_spaces_span">
+            {this.props.villa.villaSpaces[0] &&
+              this.props.villa.villaSpaces.map((space) => {
+                return (
+                  <img
+                    className="villa_space_icon"
+                    src="https://www.kindpng.com/picc/m/424-4240596_open-door-arch-hd-png-download.png"
+                    title={space}
+                  ></img>
+                );
+              })}
           </span>
         </div>
       </div>
